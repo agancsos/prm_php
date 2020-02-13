@@ -1,0 +1,739 @@
+{
+	"name"	 : "Database",
+	"product"  : "Private Record Management",
+	"version"  : "1.0.0",
+	"packages" : 
+	[
+		{
+			"name"	: "Admin",
+			"stage"   : 0,
+			"queries" :
+			[
+				{
+					"name"	   : "",
+					"family"	 : "mysql",
+					"text"	   : "CREATE DATABASE $SCHEMA",
+					"check"	  :
+					{
+						"query"	: "",
+						"value"	: ""
+					}
+				},
+				{
+					"name"	   : "",
+					"family"	 : "mysql",
+					"text"	   : "CREATE USER $USER IDENTIFIED BY '$PASS'",
+					"check"	  :
+					{
+						"query"	: "",
+						"value"	: ""
+					}
+				},
+				{
+					"name"	   : "",
+					"family"	 : "mysql",
+					"text"	   : "GRANT ALL PRIVILEGES ON $SCHEMA.* TO $USER@localhost IDENTIFIED BY '$PASS'",
+					"check"	  :
+					{
+						"query"	: "",
+						"value"	: ""
+					}
+				}
+			]
+		},
+		{
+			"name"	: "Create tables",
+			"stage"   : 1,
+			"queries" : 
+			[
+				{
+					"name"   : "Create states",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_STATE (PRM_STATE_ID VARCHAR(3) NOT NULL PRIMARY KEY,PRM_STATE_NAME VARCHAR(255), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_STATE'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create countries",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_COUNTRY (PRM_COUNTRY_ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_COUNTRY_VALUE VARCHAR(255), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_COUNTRY'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create queries",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_QUERY (PRM_QUERY_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT,PRM_QUERY_PID INT(120), PRM_QUERY_NAME VARCHAR(120), PRM_QUERY_ISFOLDER INT(1) DEFAULT '0', PRM_QUERY_ISSHARED INT(1) DEFAULT '0', PRM_USER_ID INT(120), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_QUERY'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create query filter",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_QUERY_FILTER (PRM_QUERY_FILTER_ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,PRM_QUERY_ID INT(120), PRM_QUERY_FIELD VARCHAR(120) NOT NULL, PRM_QUERY_CONDITION VARCHAR(30), PRM_QUERY_VALUE VARCHAR(400), PRM_QUERY_JOIN_CONDITION VARCHAR(3), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_QUERY_FILTER'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create query columns",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_QUERY_COLUMN(PRM_QUERY_ID INT(120) NOT NULL, COLUMN_NAME VARCHAR(120), COLUMN_ORDER INT(10), PRIMARY KEY(PRM_QUERY_ID, COLUMN_NAME))",
+					"check"  : 
+					{
+						"query"   : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_QUERY_FILTER'",
+						"value"   : "0"
+					}
+					
+				},
+
+				{
+					"name"   : "Create files",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_FILE (PRM_FILE_ID INT(30) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_FILE_ISPRIVATE INT(1) DEFAULT '0', PRM_FILE_TYPE VARCHAR(120) DEFAULT'AVATAR', PRM_FILE_PATH VARCHAR(255), PRM_FILE_NAME VARCHAR(120),PRM_OWNER_ID INT(120), CREATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP, MODIFIED_BY_ID INT(120), LAST_UPDATED_DATE TIMESTAMP)",
+					"check"  : 
+					{
+						"query" : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA='$SCHEMA' AND TABLE_NAME='PRM_FILE'",
+						"value" : "0"
+					}
+					
+				},
+				{
+					"name"   : "Create cities",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_CITY (PRM_CITY_ID INT(30) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_CITY_NAME VARCHAR(255), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_CITY'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create item descriptor",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_ITEM_DESCRIPTOR (PRM_GROUP_ID INT(120) NOT NULL, PRM_PERMISSION_ID INT(120) NOT NULL, PRM_ITEM_ID INT(120) NOT NULL, LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ITEM_DESCRIPTOR'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create users",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_USER (PRM_USER_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_USER_FIRST VARCHAR(120),PRM_USER_LAST VARCHAR(255),PRM_USER_NAME VARCHAR(120) NOT NULL,PRM_USER_PASS VARCHAR(4000) NOT NULL,PRM_USER_STATUS INT(1),PRM_USER_ISSYSADMIN INT(1),CREATED_DATE DATETIME,PRM_STATE_ID VARCHAR(3),PRM_CITY_ID INT(30),PRM_COUNTRY_ID INT(10),PRM_USER_ROLE VARCHAR(120),PRM_USER_AVATAR VARCHAR(500), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_USER'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create sessions",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_SESSION (PRM_SESSION_ID INT(38) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_SESSION_TOKEN VARCHAR(30) NOT NULL, PRM_USER_ID INT(120), CREATED_DATE DATETIME, LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+					 	"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_SESSION'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create groups",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_GROUP (PRM_GROUP_ID INT(38) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_GROUP_NAME VARCHAR(120) NOT NULL, LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+					 	"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_GROUP'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create group members",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_GROUP_MEMBER (PRM_GROUP_ID INT(38) NOT NULL, PRM_USER_ID INT(120) NOT NULL, PRIMARY KEY (PRM_GROUP_ID, PRM_USER_ID))",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_GROUP_MEMBER'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create permissions",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_PERMISSION (PRM_PERMISSION_ID INT(38) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_PERMISSION_NAME VARCHAR(120) NOT NULL, LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_PERMISSION'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create descriptor",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_DESCRIPTOR (PRM_GROUP_ID INT(38) NOT NULL, PRM_PERMISSION_ID INT(38) NOT NULL, PRIMARY KEY(PRM_GROUP_ID, PRM_PERMISSION_ID))",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_DESCRIPTOR'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create enabled modules",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_ENABLED_MODULE (PRM_MODULE_ID INT(38) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_MODULE_NAME VARCHAR(120) NOT NULL, LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_MOUDLE'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create module descriptor",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_MODULE_DESCRIPTOR (PRM_GROUP_ID INT(38) NOT NULL AUTO_INCREMENT, PRM_PERMISSION_ID INT(38) NOT NULL, PRM_MODULE_ID INT(38) NOT NULL, PRIMARY KEY(PRM_GROUP_ID,PRM_PERMISSION_ID,PRM_MODULE_ID))",
+					"check"  :
+					{
+					  	"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_MODULE_DESCRIPTOR'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create teams",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_TEAM (PRM_TEAM_ID INT(38) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_TEAM_NAME VARCHAR(120) NOT NULL, TEAM_DESCRIPTION VARCHAR(512),LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_TEAM'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create team members",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_TEAM_MEMBER (PRM_TEAM_ID INT(120) NOT NULL, PRM_USER_ID INT(120) NOT NULL, LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(PRM_TEAM_ID,PRM_USER_ID))",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_TEAM_MEMBER'",
+						"value"  : "0"					
+					}
+				},
+				{
+					"name"   : "Create statuses",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_STATUS (PRM_STATUS_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_STATUS_VALUE VARCHAR(120) NOT NULL, STATUS_DESCRIPTION VARCHAR(512), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)AUTO_INCREMENT=1000",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_STATUS'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create attachments",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_ITEM_ATTACHMENT (PRM_ATTACHMENT_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_ID INT(120), CREATED_BY INT(120), LAST_UPDATED_BY INT(120), PRM_ATTACHMENT_PATH VARCHAR(39000), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ITEM_ATTACHMENT'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create comments",
+					"family" : "mysql",
+					"text"   : "CREATE TABLE PRM_WORKITEM_COMMENT (WORKITEM_COMMENT_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_ID INT(120) NOT NULL, WORKITEM_COMMENT_TEXT VARCHAR(50000), PRM_USER_ID INT(120), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_WORKITEM_COMMENT'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create articles",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_ARTICLE (PRM_ITEM_ID INT(120) NOT NULL PRIMARY KEY, PRM_ARTICLE_STATE INT(3) NOT NULL, PRM_ARTICLE_STATUS INT(10), PRM_ARTICLE_ACCESS INT(3), PRM_ARTICLE_TITLE VARCHAR(120), PRM_ARTICLE_DESCRIPTION VARCHAR(3000), PRM_ARTICLE_TEXT TEXT)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ARTICLE'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create agents",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_AGENT (PRM_ITEM_ID INT(120) NOT NULL PRIMARY KEY, PRM_AGENT_HOST VARCHAR(120) NOT NULL, PRM_AGENT_JAVA_VERSION VARCHAR(50),PRM_AGENT_JAVA_PATH VARCHAR(255), PRM_AGENT_VERSION VARCHAR(50), PRM_AGENT_INSTALL_PATH VARCHAR(255))",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_AGENT'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create workitems",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_WORKITEM (PRM_ITEM_ID INT(120) NOT NULL PRIMARY KEY, PRM_ITEM_PID INT(120), PRM_USER_ID INT(120) DEFAULT NULL, PRM_WORKITEM_DESCRIPTION TEXT, PRM_ITERATION_ID INT(120), PRM_TEAM_ID INT(38), FOREIGN KEY CONSTRAINT (PRM_USER_ID) REFERENCES PRM_USER (PRM_USER_ID))",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_WORKITEM'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create items",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_ITEM (PRM_ITEM_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_NAME VARCHAR(120) NOT NULL, PRM_ITEM_LABEL VARCHAR(120) NOT NULL, CREATED_DATE DATETIME,PRM_ITEM_TYPE_ID INT(38),PRM_USER_ID INT(120), PRM_ITEM_STATE INT(10) DEFAULT '1', PRM_ITEM_STATUS INT(10) DEFAULT '0', LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRM_ITEM_ISDIRTY INT(1) DEFAULT '0', LAST_UPDATED_BY INT(120))",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ITEM'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create item types",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_ITEM_TYPE (PRM_ITEM_TYPE_ID INT(38) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_TYPE_NAME VARCHAR(120) NOT NULL, PRM_ITEM_TYPE_CLASS VARCHAR(120))",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ITEM_TYPE'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create iterations",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_ITERATION (PRM_ITERATION_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITERATION_NAME VARCHAR(120) NOT NULL, START_DATE DATETIME, END_DATE DATETIME, LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ITERATION'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create item values",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_ITEM_VALUE (PRM_ITEM_VALUE_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_ID INT(120) NOT NULL, PRM_ITEM_FIELD_ID INT(120) NOT NULL,PRM_ITEM_VALUE VARCHAR(30000), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ITEM_VALUE'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create item revisions",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_ITEM_REVISION (PRM_ITEM_REVISION_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_ID INT(120) NOT NULL, PRM_FIELD_ID INT(120) NOT NULL, PRM_ITEM_VALUE_ID INT(120) NOT NULL, PRM_VALUE_OLD VARCHAR(30000), PRM_VALUE_NEW VARCHAR(30000),PRM_USER_ID INT(120), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ITEM_REVISION'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create item fields",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_ITEM_FIELD (PRM_ITEM_FIELD_ID INT(120) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_FIELD_TYPE INT(3) NOT NULL, PRM_ITEM_FIELD_NAME VARCHAR(120) NOT NULL, PRM_ITEM_FIELD_LABEL VARCHAR(120) NOT NULL, WORK_ITEM_TYPE_ID INT(10) NOT NULL,LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_ITEM_FIELD'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create relationships",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_WORKITEM_RELATION (PRM_RELATIONSHIP_TYPE_ID INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_ID INT(120) NOT NULL, PRM_ITEM_ID2 INT(120) NOT NULL, PRM_USER_ID INT(120), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_WORKITEM_RELATIONS'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create relationship types",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_RELATIONSHIP_TYPE (PRM_RELATIONSHIP_TYPE_ID INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_RELATIONSHIP_TYPE_NAME VARCHAR(120) NOT NULL, LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_RELATIONSHIP_TYPE'",
+						"value"  : "0"
+					}
+				},
+				{
+					"name"   : "Create workitem types",
+					"family" : "mysql",																																																																												
+					"text"   : "CREATE TABLE PRM_WORKITEM_TYPE (PRM_ITEM_TYPE_ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT, PRM_ITEM_TYPE_NAME VARCHAR(120) NOT NULL, WORKITEM_TYPE_LABEL VARCHAR(120) NOT NULL, PRM_USER_ID INT(120), PRM_ITEM_TYPE_COLOR VARCHAR(120), LAST_UPDATED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+					"check"  :
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME = 'PRM_WORKITEM_TYPE'",
+						"value"  : "0"
+					}
+				} 
+			]
+		},
+		{   
+			"name"	: "Add foreign keys",
+			"stage"   : 2,
+			"queries" :
+			[
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_MODULE_DESCRIPTOR ADD CONSTRAINT FK_MD_EM FOREIGN KEY (PRM_MODULE_ID) REFERENCES PRM_ENABLED_MODULE (PRM_MODULE_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_MODULE_DESCRIPTOR', 'PRM_ENABLED_MODULE')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_MODULE_DESCRIPTOR ADD CONSTRAINT FK_MD_PP FOREIGN KEY (PRM_PERMISSION_ID) REFERENCES PRM_PERMISSION (PRM_PERMISSION_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_MODULE_DESCRIPTOR', 'PRM_PERMISSION')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_MODULE_DESCRIPTOR ADD CONSTRAINT FK_MD_PG FOREIGN KEY (PRM_GROUP_ID) REFERENCES PRM_GROUP (PRM_GROUP_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_MODULE_DESCRIPTOR', 'PRM_GROUP')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_DESCRIPTOR ADD CONSTRAINT FK_PD_PP FOREIGN KEY (PRM_PERMISSION_ID) REFERENCES PRM_PERMISSION (PRM_PERMISSION_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_DESCRIPTOR', 'PRM_PERMISSION')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_DESCRIPTOR ADD CONSTRAINT FK_PD_PG FOREIGN KEY (PRM_GROUP_ID) REFERENCES PRM_GROUP (PRM_GROUP_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_DESCRIPTOR', 'PRM_GROUP')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_ITEM_DESCRIPTOR ADD CONSTRAINT FK_ID_PG FOREIGN KEY (PRM_GROUP_ID) REFERENCES PRM_GROUP (PRM_GROUP_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM_DESCRIPTOR', 'PRM_GROUP')",
+						"value"  : "2"
+					}
+				},   
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_ITEM_DESCRIPTOR ADD CONSTRAINT FK_ID_PP FOREIGN KEY (PRM_PERMISSION_ID) REFERENCES PRM_PERMISSION (PRM_PERMISSION_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM_DESCRIPTOR', 'PRM_PERMISSION')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_ITEM_DESCRIPTOR ADD CONSTRAINT FK_ID_PI FOREIGN KEY (PRM_ITEM_ID) REFERENCES PRM_ITEM (PRM_ITEM_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_MODULE_DESCRIPTOR', 'PRM_ENABLED_MODULE')",
+						"value"  : "2"
+					}
+				},   
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_USER ADD CONSTRAINT FK_PU_PC FOREIGN KEY (PRM_COUNTRY_ID) REFERENCES PRM_COUNTRY (PRM_COUNTRY_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_USER', 'PRM_COUNTRY')",
+						"value"  : "2"
+					}
+				}, 
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_USER ADD CONSTRAINT FK_PU_PCC FOREIGN KEY (PRM_CITY_ID) REFERENCES PRM_CITY (PRM_CITY_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_USER', 'PRM_CITY')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_USER ADD CONSTRAINT FK_PU_PS FOREIGN KEY (PRM_STATE_ID) REFERENCES PRM_STATE (PRM_STATE_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_USER', 'PRM_STATE')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+				  	"text"	 : "ALTER TABLE PRM_SESSION ADD CONSTRAINT FK_PS_PU FOREIGN KEY (PRM_USER_ID) REFERENCES PRM_SESSION (PRM_SESSION_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_SESSION', 'PRM_USER')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_GROUP_MEMBER ADD CONSTRAINT FK_GM_PU FOREIGN KEY (PRM_USER_ID) REFERENCES PRM_GROUP_MEMBER (PRM_USER_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_GROUP_MEMBER', 'PRM_USER')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_GROUP_MEMBER ADD CONSTRAINT FK_GM_PG FOREIGN KEY (PRM_GROUP_ID) REFERENCES PRM_GROUP (PRM_GROUP_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_GROUP_MEMBER', 'PRM_GROUP')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_USER ADD CONSTRAINT FK_PU_PS FOREIGN KEY (PRM_STATUS_ID) REFERENCES PRM_STATUS (PRM_STATUS_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_USER', 'PRM_STATUS')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_TEAM_MEMBER ADD CONSTRAINT FK_TM_PU FOREIGN KEY (PRM_USER_ID) REFERENCES PRM_USER (PRM_USER_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_USER', 'PRM_TEAM_MEMBER')",
+						"value"  : "2"
+					}
+				},
+				{	   
+					"name"	 :  "",
+					"family"   : "mysql",
+				   	"text"	 : "ALTER TABLE PRM_TEAM_MEMBER ADD CONSTRAINT FK_TM_PT FOREIGN KEY (PRM_TEAM_ID) REFERENCES PRM_TEAM (PRM_TEAM_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_TEAM_MEMBER', 'PRM_TEAM')",
+						"value"  : "2"
+					}
+				},
+				{																																																																																	   
+					"name"	 :  "",
+					"family"   : "mysql",																																																																											   
+					"text"	 : "ALTER TABLE PRM_ITEM_ATTACHMENT ADD CONSTRAINT FK_IA_WI FOREIGN KEY (PRM_ITEM_ID) REFERENCES PRM_WORKITEM (PRM_ITEM_ID)",																																								 
+					"check"	:																																																																														
+					{																																																																																   
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_WORKITEM', 'PRM_ITEM_ATTACHMENT')",																																											  
+						"value"  : "2"																																																																												  
+					}																																																																																   
+				},
+				{																																																																																	   
+					"name"	 :  "",
+					"family"   : "mysql",																																																																											   
+					"text"	 : "ALTER TABLE PRM_WORKITEM_COMMENT ADD CONSTRAINT FK_WC_PU FOREIGN KEY (PRM_USER_ID) REFERENCES PRM_USER (PRM_USER_ID)",																																								 
+					"check"	:																																																																														
+					{																																																																																   
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_USER', 'PRM_WORKITEM_COMMENT')",																																											  
+						"value"  : "2"																																																																												  
+					}																																																																																   
+				},
+				{																																																																																	   
+					"name"	 :  "",
+					"family"   : "mysql",																																																																											   
+					"text"	 : "ALTER TABLE PRM_WORKITEM_COMMENT ADD CONSTRAINT FK_WC_WI FOREIGN KEY (PRM_ITEM_ID) REFERENCES PRM_WORKITEM (PRM_ITEM_ID)",																																								 
+					"check"	:																																																																														
+					{																																																																																   
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_WORKITEM', 'PRM_WORKITEM_COMMENT')",																																											  
+						"value"  : "2"																																																																												  
+					}																																																																																   
+				},
+				{																																																																																	   
+					"name"	 :  "",
+					"family"   : "mysql",																																																																											   
+					"text"	 : "ALTER TABLE PRM_ITEM ADD CONSTRAINT FK_PI_IT FOREIGN KEY (PRM_ITEM_TYPE_ID) REFERENCES PRM_ITEM_TYPE (PRM_ITEM_TYPE_ID)",																																								 
+					"check"	:																																																																														
+					{																																																																																   
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM', 'PRM_ITEM_TYPE')",																																											  
+						"value"  : "2"																																																																												  
+					}																																																																																   
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_WORKITEM ADD CONSTRAINT FK_WI_PI FOREIGN KEY (PRM_ITEM_ID) REFERENCES PRM_ITEM (PRM_ITEM_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM', 'PRM_WORKITEM')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_AGENT ADD CONSTRAINT FK_PA_PI FOREIGN KEY (PRM_ITEM_ID) REFERENCES PRM_ITEM (PRM_ITEM_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM', 'PRM_AGENT')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_ARTICLE ADD CONSTRAINT FK_PA_PI FOREIGN KEY (PRM_ITEM_ID) REFERENCES PRM_ITEM (PRM_ITEM_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM', 'PRM_ARTICLE')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_ITEM ADD CONSTRAINT FK_PI_PS FOREIGN KEY (PRM_STATUS_ID) REFERENCES PRM_STATUS (PRM_STATUS_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM', 'PRM_STATUS')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_WORKITEM_RELATION ADD CONSTRAINT FK_WR_RT FOREIGN KEY (PRM_RELATIONSHIP_TYPE_ID) REFERENCES PRM_RELATIONSHIP_TYPE (PRM_RELATIONSHIP_TYPE_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_WORKITEM_RELATION', 'PRM_RELATIONSHIP_TYPE')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_WORKITEM_RELATION ADD CONSTRAINT FK_WR_PI1 FOREIGN KEY (PRM_ITEM_ID) REFERENCES PRM_WORKITEM (PRM_ITEM_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM', 'PRM_WORKITEM_RELATION')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_WORKITEM_RELATION ADD CONSTRAINT FK_WR_PI2 FOREIGN KEY (PRM_ITEM_ID2) REFERENCES PRM_WORKITEM (PRM_ITEM_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM', 'PRM_WORKITEM_RELATION')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_ITEM_VALUE ADD CONSTRAINT FK_IV_PI FOREIGN KEY (PRM_ITEM_ID) REFERENCES PRM_WORKITEM (PRM_ITEM_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_WORKITEM', 'PRM_ITEM_VALUE')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_ITEM_VALUE ADD CONSTRAINT FK_IV_IF FOREIGN KEY (PRM_ITEM_FIELD_ID) REFERENCES PRM_ITEM_FIELD (PRM_ITEM_FIELD_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM_VALUE', 'PRM_ITEM_FIELD')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_ITEM_FIELD ADD CONSTRAINT FK_IF_IT FOREIGN KEY (WORK_ITEM_TYPE_ID) REFERENCES PRM_WORKITEM_TYPE (WORK_ITEM_TYPE_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_ITEM_FIELD', 'PRM_WORKITEM_TYPE')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_QUERY_FILTER ADD CONSTRAINT FK_PQ_QF FOREIGN KEY (PRM_QUERY_ID) REFERENCES PRM_QUERY (PRM_QUERY_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_QUERY', 'PRM_QUERY_FILTER')",
+						"value"  : "2"
+					}
+				},
+				{
+					"name"	 :  "",
+					"family"   : "mysql",
+					"text"	 : "ALTER TABLE PRM_QUERY_COLUMN ADD CONSTRAINT FK_PQ_QC FOREIGN KEY (PRM_QUERY_ID) REFERENCES PRM_QUERY (PRM_QUERY_ID)",
+					"check"	:
+					{
+						"query"  : "SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$SCHEMA' AND TABLE_NAME IN ('PRM_QUERY', 'PRM_QUERY_COLUMN')",
+						"value"  : "2"
+					}
+				}				 
+			]
+		},
+		{
+			"name"	: "Add triggers",
+			"stage"   : 3,
+			"queries" : 
+			[
+				{
+					"name"	 :  "Adding foreign key constraints",
+					"family"   : "mysql",
+					"text"	 : "",
+					"check"	:
+					{
+						"query"  : "",
+						"value"  : ""
+					}
+				}
+			]
+		}
+	]
+}
