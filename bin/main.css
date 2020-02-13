@@ -1,0 +1,1135 @@
+*{
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-repeat: none;
+}
+img{
+	border: none;
+}
+#tree-tools button {
+	height: 40px;
+	width: 40px;
+}
+#article-table td img{
+	width: 50%;
+	display: block;
+	clear: both;
+}
+/*				MISC			 */
+table #del-frame{
+	float: left;
+}
+#source-textarea{
+	background-color: transparent;
+	width: 80%;
+	height: 20%;
+	color: white;
+	font-family: Courier New;
+	font-size: 12pt;
+	border: none;
+}
+#logo{
+	color:  #3399cc;
+	font-size:  32pt;
+}
+#plain-table td button{
+	cursor: pointer;
+	border: none;
+	background-color: #3399cc;
+	color: white;
+}
+#forum-button,#topic-button{
+	height: 30px;
+	cursor: pointer;
+}
+#forum-button{
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding-right: 10px;
+}
+#topic-button{
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding-right: 10px;
+	border-top-left-radius: -20px;
+	border-bottom-left-radius: -20px;
+	padding-left: 10px;
+}
+.preview{
+	width: 30%;
+	margin-top: 10px;
+	border: none;
+}
+tr: hover{
+	background-color:  #3399cc;
+	color:  white;
+}
+.add-button{
+	height: 20px;
+	width: 100%;
+}
+#welcome-div{
+	display: inline;
+	top: -5px;
+}
+#link-buttons img, .avatar {
+	margin-top: 10px;
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	border-radius: 50%;
+}
+body{
+	height: 100%;
+	width: 100%;
+}
+td .avatar {
+	display: inline-block !important;
+	height: 30px !important;	
+	width: 30px !important;
+	top: 50% !important;																																																																																
+	transform: translateY(-15%) !important;
+}
+.avatar-label {
+	display: inline-block !important;
+	position: relative !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+}
+input,textarea{
+	border: 1px solid black;
+}
+input[type=submit]{
+	border: none;
+}
+input: hover{
+}
+/***********************************/
+
+/*				DIVS			 */
+#article-div{
+	width: 50%;
+	left: 25%;
+}
+#response-timestamp{
+	float: right;
+	font-size: 8pt;
+	text-align: right;
+	margin-top: 30px;
+}
+div{position: relative;}
+#forum-div{
+	width: 50%;
+	left: 25%;
+}
+#question-div{
+	width: 100%;
+}
+.action-container {
+	width: 60%;
+	margin-left: 20%;
+}
+.question-by,.responses-div{
+	font-size: 9pt;
+	float: right;
+	display: inline-block;
+	margin-right: 5px;
+}
+#group-div{
+	margin-right: 5px;
+	width: 300px;
+	height: 40px;
+	display: inline-block;
+	*vertical-align: top;
+	vertical-align: top;
+}
+.label-button{
+	cursor: pointer;
+	width: 90%;
+	height: 30px;
+	color: white;
+	background-color: rgb(0,0,50);
+	display: inline-block;
+}
+#login-div{
+	border: 3px solid black;
+	width: 30%;
+	margin-top: 10%;
+	left: 8%;
+	border-radius: 10px;
+}
+#banner,#links,#main,#footer{
+	width: 100%;
+}
+/*#banner-inner,#links-inner{
+	width: 80%;
+	left: 15%;
+}*/
+#banner{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-image: url("media/images/wallpapers/banner.png");
+}
+#links{
+	min-height: 40px;
+	background-color: black;
+	overflow:  hidden;
+}
+#main{
+	min-height: 100%;
+}
+#install-div{
+	left: 17%;
+	margin-top: 10%;
+}
+#footer{
+	padding-top: 40px;
+	padding-bottom: 40px;
+	text-align: center;
+	color: grey;
+	font-size: 8pt;
+	background-image: url("media/images/wallpapers/black.png");
+}
+.cell-spacer {
+	resize: horizontal;
+	display: block;
+	border: 0;
+	width: 100%;
+}
+div.cell-spacer {
+	display: inline-block;
+	min-width: 33%;
+	width: auto;
+	resize: horizontal;
+	border: 3px solid black;
+	height: 100%;
+	overflow: hidden;
+}
+.cell-spacer .list-form {
+	width: 100%;
+}
+#grid-container input,select {
+	border:  2px solid #3399cc;
+}
+.cell-spacer table {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	resize: none;
+}
+/***********************************/
+
+/*				LINK			 */
+article-div a{
+	margin-right: 5px;
+}
+#forum-table a{
+	color: #3399cc;
+}
+table a{
+	color: blue;
+}
+#mod-buttons a{
+	color: white;
+}
+#footer a{
+	color: grey;
+}
+#link-buttons a{
+	color: white;
+}
+a{
+	text-decoration: none;
+}
+#article-table a{
+	color: #3399cc;
+}
+#banner a{
+	color: white;
+	font-size: 20pt;
+}
+#grid-container a {
+	color: black;
+}
+/***********************************/
+
+/*				TABL			 */
+#list-table {
+	width:  30%;
+	margin-left:  33%;
+	border-collapse:  collapse;
+}
+#article-table{
+	width: 100%;
+	border-collapse: collapse;
+	empty-cells: show;
+}
+#article-table th,td{
+	text-align: left;
+	border: 2px solid black;
+}
+#article-table td{
+	word-break: break-all;
+}
+#article-table tr: hover{
+	background-color: transparent;
+}
+.kb-table,.kb-table-browse {
+	width: 100%;
+	border-collapse: collapse;
+}
+.kb-table td,.kb-table-browse {
+	border: 2px solid #3399cc;
+	min-width: 200;
+}
+.kb-table tr,.kb-table-browse tr {
+	height: 30px;
+}
+.kb-table tr:hover,.kb-table-browse tr:hover{ 
+	background-color: #3399cc;
+	color: white;
+}
+.kb-table td button{
+	width: 100%;
+	height: 100%;
+}
+.kb-table-browse th {
+	border:4px solid #3399cc;
+}
+.kb-table-browse td {
+	border: 3px solid #3399cc;
+}
+.kb-table-browse textarea {
+	font-family: Arial;
+	font-size: 14pt;
+}
+#response-table img{
+	width: 50px;
+	height: 50px;
+	float: right;
+}
+#response-table{
+	width: 100%;
+}
+#response-table tr: hover{
+	background-color: transparent;
+}
+#response-table td{
+	vertical-align: top;
+}
+#response-table td: first-child{
+	width: 50px;
+}
+#response-table td: last-child{
+	text-align: left;
+	word-break: break-all;
+	min-width: 99%;
+}
+#forum-table{
+	width: 100%;
+}
+#plain-table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+#grid-container {
+	width: 100%;
+	overflow: hidden;
+	display: flex !important;
+	height: 100%;
+}
+#grid-container div {
+	display: flex;
+	flex-direction: column;
+	min-height: 10%;
+	max-height: 100%;
+	border: 3px solid black;
+	cursor: /*ew-resize*/pointer;
+	width: 35%;
+	min-width: 10%;
+	resize: horizontal;
+	word-break: break-all;
+	box-sizing: border-box;
+}
+#grid-container div {
+	flex: 1 1 auto;
+}
+#grid-container div div {
+	resize: none;
+	display: inline-block !important;
+}
+#grid-table td,th {
+	width: 100%;
+}
+.grid-table { 
+	border-collapse: collapse;
+	width: 100%;
+}
+#grid-table td,th {
+	width: 100%;
+}
+#grid-container div input,select {
+	width: 100%;
+	height: 40px;
+	font-size: 14pt;
+	display: block;
+	border: 2px solid #3399cc;
+} 
+#grid-container div input[type=submit] {
+	width: 100%;
+	height: 40px;
+	display: block;
+	background-color: #3399cc;
+	color: white;
+	margin-top: 5px;
+}
+#grid-container div input[type=submit].delete-submit {
+	color:rgb(60,0,0);
+	/*color:white;*/
+	width: 20px;
+	height: 20px; 
+	margin-top: -30px;
+	margin-left: 95%;
+	float: right;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+#plain-table td,th {
+	border: 3px solid black;
+	overflow: hidden;
+	text-align: left;
+}
+#plain-table td {	
+	vertical-align: center;
+}
+#plain-table tr{
+	height: 30px;
+}
+#plain-table tr:hover {
+	background-color: #3399cc;
+	color: white;
+}
+#plain-table textarea{
+	width: 100%;
+	height: 100%;
+	resize: vertical;
+}
+.profile-button{
+	border: 0;
+}
+#link-buttons,#mod-buttons{
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+#link-buttons{
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+#mod-buttons{
+	margin-top: 5px;
+}
+#link-buttons tr{
+	height: 40px;
+}
+#mod-buttons tr{
+	height: 20px;
+}
+#link-buttons td{
+	color: white;
+	border-bottom: 0;
+	border-top: 0;
+	height: 40px !important;
+	/*background-image: url("media/images/icons/buttons/off.png");*/
+	cursor: pointer;
+	font-size: 18pt;
+	padding: 0;
+}
+#mod-buttons td{
+	color: white;
+	border-bottom: white 2px solid;
+	text-align: right;
+	border-left: white 2px solid;
+	background-image: url("media/images/icons/buttons/off.png");
+	cursor: pointer;
+}
+#link-buttons td+td{
+	text-align: center;
+	border-left:  3px solid white;
+}
+.selected-page{
+	/*background-image: url("media/images/icons/buttons/on.png"); */
+	background-color: #3399cc;
+}
+#grid-container .selected-page {
+	color: white;
+}
+#audit-table{
+	width: 100%;
+	border-collapse: collapse;
+	empty-cells:  show;
+	table-layout: fixed;
+}
+#audit-table td,th{
+	border: 3px solid black;
+	overflow: hidden;
+	text-align: left;
+}
+#audit-table tr:hover{
+	background-color:  #3399cc;
+	color: white;
+} 
+/***********************************/
+
+/*				FORM			 */
+.add-remove-form {
+	width: 100%;
+}
+.list-form {
+	width:  100%;
+}
+.list-form input[type=text], .list-form input[type=password], .list-form input[type=submit] {
+	width:  50%;
+	height:  40px;
+}
+#plain-table .list-form input {
+	width: 1000%;
+	height: 40px;
+}
+#page-tools {
+	border-top:  2px white solid;
+	background-color:  black;
+	width:  100%;
+}
+#page-tools input[type=submit] {
+	height:  30px;
+	width:  200px;
+	background-color:  inherit;
+	color:  white;
+	font-size:  14pt;
+	cursor:  pointer;
+}
+#page-tools input+input {
+	border-left:  2px solid white;
+}
+
+#setup-form,#log-frame{
+	position:  relative;
+	width:  50%;
+	left:  25%;
+}
+#setup-form input{
+	border:  2px solid #3399cc;
+	font-size:  14pt;
+}
+select{
+	width:  50%;
+	float:  right;
+	clear:  right;
+	height:  40px;
+	border:  2px solid #3399cc;
+}
+#login-form input[type=text], #login-form input[type=password] {
+	width: 75%;
+	height: 40px;
+	display: inline-block;	
+	border: 2px solid #3399cc;
+	float: right;
+}
+#login-form label {
+	height: 40px;
+	display: inline-block;
+	width: 25%;
+	background-color: #3399cc;
+	color: white;
+}
+#setup-form input[type=text],#setup-form input[type=password]{
+	width:  50%;
+	float:  right;
+	clear:  right;
+	height:  40px;
+}
+#setup-form input[type=submit]{
+	width: 100%;
+	height:  40px;
+	border:  2px solid #3399cc;
+	background-color:  #3399cc;
+	margin-top:  5px;
+	color:  white;
+}
+.label{
+	float:  left;
+	clear:  left;
+	line-height:  250%;
+	overflow: hidden;
+}
+
+#settings-form {
+	width: 100%;
+}
+
+#settings-form input[type=submit],#settings-form input[type=file] {
+	width: 100%;
+	height: 40px;
+	display: block;
+	border: 2px solid #3399cc;
+	background-color: #3399cc;
+	color: white;
+	margin-top: 5px;
+}
+
+#settings-form input[type=select],input[type=text],input[type=password] {
+	width: 75%;
+	height: 40px;
+	border: 2px solid #3399cc;
+	float: right;
+	clear: right;
+}
+#setup-form .label{
+	height:  38px;
+	display: inline-block;
+	border:  2px solid #3399cc;
+	width:  49%;
+}
+
+#settings-form .label{
+	height:  38px;
+	display: inline-block;
+	border:  2px solid #3399cc;
+	width:  24.5%;
+	float: left;
+	clear: left;
+}
+	
+#kb-form{
+	width: 50%;
+	margin-left: 25%;
+}
+#kb-form textarea{
+	width: 100%;
+	height: 100%;
+	resize: none;
+	font-family: Arial;
+	font-size: 14pt;
+	border: 2px solid #3399cc;
+}
+#kb-form input{
+	height: 40px;
+	border: 2px solid #3399cc;
+}
+#kb-form select{
+	width: 100%;
+	height: 40px;
+	border: 2px solid #3399cc;
+}
+#kb-form input[type=checkbox],#kb-form input[type=reset]{
+	float: right;
+	display: inline;
+}
+#kb-form input[type=submit] {
+	background-color: #3399cc;
+	color: white;
+}
+#respond-frame{
+	width: 100%;
+}
+#question-form{
+	width: 100%;
+}
+#question-form input[type=text]{
+	width: 90%;
+}
+#question-form input{
+	height: 30px;
+	*vertical-align: top;
+	vertical-align: top;
+	display: inline-block;
+}
+#question-form input[type=submit]{
+	width: 10%;
+	height: 29px;
+}
+
+#respond-form{
+	margin-top: 10px;
+	width: 100%;
+}
+#respond-form input[type=text]{
+	width: 85%;
+}
+#respond-form input{
+	height: 30px;
+	*vertical-align: top;
+	vertical-align: top;
+	display: inline-block;
+}
+#respond-form input[type=submit]{
+	width: 15%;
+	height: 29px;
+}
+
+#search-form{
+	height: 100%;
+}
+#search-form input{
+	width: 100%;
+	height: 40px;
+	font-size:  12pt;
+	font-family:  "Arial";
+	border: none;
+	outline: none;
+	background-color: black;
+	color: white; 
+	font-size: 20pt;
+}
+#line-form, .line-form {
+	width: 100%;
+}
+#line-form input, .line-form input{
+	width: 30%;
+	height: 40px;
+	border: 1px solid black;
+}
+table iframe{
+	height: 30px;
+}
+#embed-form{
+	width: 100%;
+	overflow: hidden;
+	border: none;
+}
+#embed-form input{
+	height: 30px;
+	width: 100%;
+	border: 0;
+}
+#del-form{
+	width: 100%;
+	height: 30px;
+	border: 0;
+	overflow: hidden;
+}
+#del-form input{
+	width: 100%;
+	display: inline;
+	background-color: red;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	border: 0;
+}
+#embed-form input[type=submit]{
+	display: none;
+}
+#plain-form{
+	width: 100%;
+}
+#half-form{
+	width: 50%;
+}
+#plain-table button{
+	width: 100%;
+	height: 100%;
+}
+#kb-form{
+	width: 50%;
+}
+#kb-form input{
+	width: 100%;
+	height: 30px;
+}
+/** working **/
+#plain-form input[type=password] {
+	width: 100%;
+}
+#kb-form input[type=submit]{
+	height: 40px;
+}
+#plain-form input,#half-form input{
+	width: 100%;
+}
+#plain-form textarea,#half-form textarea{
+	width: 100%;
+	height: 350px;
+	resize: none;
+	font-size: 12pt;
+	border: 3px solid black;
+}
+#plain-form input,#half-form input{
+	height: 40px;
+	margin-top: 5px;
+	border: 3px solid black;
+}
+#plain-form input[type=submit] {
+	height: 30px;
+	color: white;
+	background-color: blue;
+}
+form input[type=file]{
+	border: none;
+}
+#password-form{
+	width: 100%;
+}
+#password-form input{
+	width: 25%; 
+	height: 40px;
+}
+#password-form input[type=submit]{
+	*vertical-align: top;
+	vertical-align: top;
+	height: 39px;
+}
+#avatar-form{
+	width: 100%;
+}
+#avatar-form input{
+	width: 100%;
+	height: 40px;
+}
+#login-div{
+	margin-left: 27%;
+}
+#login-div .label{
+	border-right: white solid 2px;
+	display: inline;
+	min-height: 30px;
+	width: 25%;
+	-webkit-touch-callout:  none;
+	-webkit-user-select:  none;
+	-khtml-user-select:  none;
+	-moz-user-select:  none;
+	-ms-user-select:  none;
+	user-select:  none;
+	background-color: black;
+	color: white;
+}
+#login-div input{
+	height: 40px;
+	width: 100%;
+	background-color: white;
+	color: black;
+}
+#login-div input: focus{
+	outline: none;
+}
+#login-div input[type=submit]{
+	width: 100%;
+	background-image: url("media/images/icons/buttons/off.png");
+	color: white;
+}
+#install-form{
+	text-align: center;
+	overflow: hidden;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+#install-form input{
+	width: 100%;
+	height: 40px;
+	margin-bottom: 5px;
+}
+#install-form input[type=submit]{
+	height: 40px;
+}
+/***********************************/
+input[type=file] {
+	height: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: #3399cc;
+	width: 100%;
+}
+select {
+	background-color:  white;
+	 border:  thin solid blue;
+	 border-radius:  4px;
+	 display:  inline-block;
+	 font:  inherit;
+	 line-height:  1.5em;
+	 /*padding:  0.5em 3.5em 0.5em 1em;*/
+	 margin:  0;	  
+	 -webkit-box-sizing:  border-box;
+	 -moz-box-sizing:  border-box;
+	 box-sizing:  border-box;
+	 -webkit-appearance:  none;
+	 -moz-appearance:  none;
+	background-image: 
+	   linear-gradient(45deg, transparent 50%, gray 50%),
+	   linear-gradient(135deg, gray 50%, transparent 50%),
+	   linear-gradient(to right, #ccc, #ccc);
+	 background-position: 
+	   calc(100% - 20px) calc(1em + 2px),
+	   calc(100% - 15px) calc(1em + 2px),
+	   calc(100% - 2.5em) 0.5em;
+	 background-size: 
+	   5px 5px,
+	   5px 5px,
+	   1px 1.5em;
+	 background-repeat:  no-repeat;
+}
+
+/*				ALGN			 */
+.right{float: right;clear:right;display:inline-block;}
+.left{float: left;clear:left;display:inline-block;}
+/***********************************/
+form .query-input {
+	width:  100%;
+	height:  300px;
+	font-family:  Consolos;
+	border:  3px solid black;
+	font-size:  14pt;
+	resize:  vertical;
+	margin-bottom:  5px;
+}
+.query-submit {
+	width:  50%;
+	height:  40px;
+	border:  3px solid black;
+	background-color:  #3399cc;
+	color:  white;
+	cursor:  pointer;
+	font-size:  14pt;
+}
+.query-clear {
+	width:  50%;
+	height:  40px;
+	border:  3px solid black;
+	background-color:  rgb(120, 0, 0);
+	color:  white;
+	cursor: pointer;
+	font-size:  14pt;
+}
+#grid-container div {
+	white-space: pre-line;
+	word-wrap: break-all;
+}
+.centered-hr {
+	width: 80%;
+	margin-left: 10%;
+	height: 5px;
+}
+label {
+	display: inline-block;
+	border: 2px solid #3399cc;
+	min-width: 25%;
+	height: 36.25px;
+	line-height: 250%;
+	overflow: hidden;
+	float: left;
+	margin; 0;
+	clear: both;
+}
+#grid-container .add-remove-form input[type=submit],input[type=text],label {
+	width: 50%;
+	display: inline-block;
+	height: 40px;
+	border: none;
+	margin-top: none;
+}
+.export-data {
+	width: 100%;
+	min-height: 400px;
+	height: 800px;
+	resize: vertical;
+}
+
+#grid-container #properties-view,#grid-container #tree-view {
+	width: 100%;
+	display: block;
+	cursor: /*ns-resize*/pointer;
+}
+
+#grid-container #properties-view {
+	height: 25%;
+}
+
+#grid-container #tree-view {
+	height: 75%;
+}
+#tree-tools {
+	width: 75%;
+}
+#tree-header {
+	min-width: 25%;
+	font-size: 16pt;
+	font-weight: bold;
+}
+#tree-tree {
+	width: 100%;
+}
+.tree-tools {
+	width: 100% !important;
+}
+.tree-tools input[type=submit] {
+	height: 40px !important;
+	width: 50% !important;
+	display: inline-block !important;
+	cursor: pointer !important;
+}
+.tree-tools input+input {
+	border-left: 2px solid white !important;
+}
+#tree-object li{
+	list-style-position: inside;
+	cursor: pointer;
+}
+#tree-object {
+	width: 100%;
+	cursor: pointer;
+}
+#tree-object .tree-node{
+	list-style-image: url('/media/images/icons/tree/folder-black.png') !important;
+}
+#tree-object .root-node {
+	list-style-image: url('/media/images/icons/tree/folder-black.png') !important;
+}
+#tree-object .nested-node {
+	display: block;
+	list-style-image: url('/media/images/icons/tree/query-black.jpeg') !important;
+}
+#properties-form #properties-table {
+	width: 100%;
+	height: 90%;
+	border-collapse: collapse;
+}
+#properties-table tr:hover{ 
+	background-color: #3399cc;
+	color: white;
+}
+#properties-table td,th {
+	width: 50%;
+	cursor: pointer;
+}
+#tree-object .selected-node {
+	background-color: #3399cc;
+}
+#properties-form {	
+	width: 100%;
+}
+#properties-form input[type=text],#properties-form  select {
+	width: 100%;
+	height: 100%;
+}
+#properties-form input[type=submit] {
+	width: 100%;
+	height: 95% !important;
+}
+
+.list-form {
+	width: 100%;
+}
+.list-form-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.list-form-table td {
+	border: 2px solid black !important;
+	height: 30px;
+}
+.list-form-table td input[type=submit] {
+	width: 100% !important;
+	height: 100% !important;
+	border: none !important;
+	display: inline-block !important;
+	margin-top: 0px !important;
+}
+.list-form-table td input[type=text], .list-form-table td select {
+	width: 100% !important;
+	height: 100% !important;
+	border: none !important;
+	display: inline-block !important;
+	margin-top: 0px !important;
+}
+.attachments-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.attachments-table td,th {
+	width: 30%;
+}   
+.relationship-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.comment-form {
+	width: 100%;
+}
+.comment-form textarea {
+	width: 100%;
+	height: 40px;
+	resize: vertical;
+	font-size: 14pt !important;
+	font-family: Consolas;
+}
+#workitem-builtin, #workitem-advanced, #workitem-comments {
+	width: 100% !important;
+	height: 47.5% !important;
+}
+.comments-table {
+	width: 100% !important;
+	border-collapse: collapse !important;
+	overflow: scroll;
+}
+.comments-table th,td {
+	border: 2px solid black !important;
+}
+.comments-table td textarea {
+	width: 100%;
+	height: 100%;
+	min-height: 40px;
+	resize: vertical;
+}
+#add-value select {
+	width: 100% !important;
+}
+table div {
+	width: 100% !important;
+	height: 100%; !important;
+}
+.workitem-details-form .list-form-table textarea {
+	width: 100%;
+	min-height: 500px;
+	resize: vertical;
+}
+.workitem-details-form {
+	width: 100% !important;
+}
+#workitem-type-div {
+	width: 100%!important;
+	max-height: 5px !important;
+	min-height: 5px !important;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+#workitem-properties {
+	width: 100% !important;
+	display: none !important;
+	overflow-y: auto;
+	padding: none !important;
+}
+#workitem-properties div {
+	min-width: 100% !important;
+}
+.resize-handler-vertical {
+    height: 10px !important;
+    width: 100% !important;
+    resize: none !important;
+    background-color: black;
+    cursor: ns-resize;
+}
+
+.resize-handler-horizontal {
+    height: 100% !important;
+    width: 10px !important;
+    resize: none !important;
+    background-color: black;
+    cursor: ew-resize;
+}
