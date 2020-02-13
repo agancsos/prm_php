@@ -1,0 +1,13 @@
+<?php
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMAdminViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMGroupsViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMInstanceViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMPortViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMQueryViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMSessionsViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMTablesViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMTeamsViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMTypesViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMUpdateViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/PRMUsersViewModel.php");
+?>

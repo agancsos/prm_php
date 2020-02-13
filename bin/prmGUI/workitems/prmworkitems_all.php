@@ -1,0 +1,13 @@
+<?php
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMWorkItemsViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMPropertiesViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMTreeViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMQueryResultViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMWorkItemViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMFilterEditorViewModel.php");
+    include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMResultsViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMWorkItemAttachmentsViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMWorkItemLinksViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMWorkItemDetailsViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/workitems/PRMCreateWorkItemViewModel.php");
+?>

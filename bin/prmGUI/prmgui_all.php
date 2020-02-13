@@ -1,0 +1,14 @@
+<?php
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/admin/prmadmin_all.php");
+	include_once("PRMViewModel.php");
+	include_once("PRMAuditsViewModel.php");
+	include_once("PRMSetupViewModel.php");
+	include_once("PRMHomeViewModel.php");
+	include_once("PRMLinksViewModel.php");
+	include_once("PRMFormViewModel.php");
+	include_once("PRMPropertyFormViewModel.php");
+	include_once("PRMListFormViewModel.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/kb/prmkb_all.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/settings/prmsettings_all.php");
+	include_once("{$__ROOT_FROM_PAGE__}/classes/prmGUI/filemanager/prmfilemanager_all.php");
+?>
